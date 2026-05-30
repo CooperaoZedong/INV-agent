@@ -155,6 +155,8 @@ class LocalRepoService:
                 }
             )
 
+            print("Tree Results: ", results)
+
         return {
             "root": str(root.relative_to(self.repo_root)),
             "depth": depth,
@@ -177,13 +179,10 @@ class LocalRepoService:
         s = 1 if start_line is None else max(1, start_line)
         e = len(lines) if end_line is None else min(len(lines), end_line)
 
-        if e < s:
-            raise ValueError("end_line must be >= start_line")
-
         if (e - s + 1) > self.config.max_read_lines:
             e = s + self.config.max_read_lines - 1
 
-        selected = lines[s - 1 : e]
+        selected = lines[s - 1 : e] if e > 0 else []
 
         return {
             "path": str(p.relative_to(self.repo_root)),

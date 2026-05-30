@@ -14,7 +14,7 @@ def submit_prompt(prompt: str) -> dict:
     resp = requests.post(
         f"{API_BASE}/runs",
         json={"prompt": prompt, "buffer": st.session_state.history},
-        timeout=180,
+        timeout=540,
     )
     resp.raise_for_status()
     return resp.json()

@@ -52,7 +52,7 @@ class LocalRepoToolset:
     def __init__(self, service: LocalRepoService):
         self.service = service
 
-    def _list_tree(self, path: str = '.', depth: int = 3) -> dict:
+    def _list_tree(self, path: str = '.', depth: int = 6) -> dict:
         return self.service.list_tree(path=path, depth=depth)
 
     def _read_file(self, path: str, start_line: Optional[int] = None, end_line: Optional[int] = None) -> dict:
@@ -88,7 +88,7 @@ class LocalRepoToolset:
                 func=self._read_file,
                 name="repo_read_file",
                 description=(
-                    "Read a text file from the local repository. Optionally restrict to a line range."
+                    "Read a text file from the local repository. Do not try to read dirs and first make sure file exists (in a file tree) and it is not a dir. Optionally restrict to a line range."
                 ),
                 args_schema=RepoReadFileArgs,
             ),
